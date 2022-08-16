@@ -54,10 +54,10 @@ Sumber dataset [Kaggle Pima Indians Diabetes Database](https://www.kaggle.com/da
 Visualisasi Dataset:
 
 - Visualisasi data akan dilakukan terhadap dataset yang ada untuk mengetahui jenis data dan missing value.
-  [Tipe Data di Dataset](https://drive.google.com/file/d/1mV3bsJ-6WcxIgAkT8BV4F_LaChQiRMkO/view?usp=sharing)
-  [visualisasi 1](https://drive.google.com/file/d/1oOLVro9Ax48crcqjEJbUnnxfhpZV6_ZP/view?usp=sharing)
-  [visualisasi 2](https://drive.google.com/file/d/1zlTsrW4qZoNKYw43C_I74i6bCf9MpfWy/view?usp=sharing)
-  [visualisasi 3](https://drive.google.com/file/d/1TjkQtYKPfHlNznmhC70MvWk8mYByfVbb/view?usp=sharing)
+  ![Tipe Data di Dataset](https://drive.google.com/file/d/1mV3bsJ-6WcxIgAkT8BV4F_LaChQiRMkO/view?usp=sharing)
+  ![visualisasi 1](https://drive.google.com/file/d/1oOLVro9Ax48crcqjEJbUnnxfhpZV6_ZP/view?usp=sharing)
+  ![visualisasi 2](https://drive.google.com/file/d/1zlTsrW4qZoNKYw43C_I74i6bCf9MpfWy/view?usp=sharing)
+  ![visualisasi 3](https://drive.google.com/file/d/1TjkQtYKPfHlNznmhC70MvWk8mYByfVbb/view?usp=sharing)
 
 ## Data Preparation
 
@@ -104,16 +104,16 @@ b. Decision Tree - Accuracy = 0.7348484848484849 - Recall = 0.5714285714285714 -
 
 Akurasi adalah salah satu metrik untuk mengevaluasi model klasifikasi. Secara informal, akurasi adalah sebagian kecil dari prediksi model yang benar. Secara formal, akurasi memiliki definisi sebagai berikut:
 
-[akurasi](https://drive.google.com/file/d/1Ec-Vlujyb4Vo3Zmwa3iHw3CPTK3Nl_N6/view?usp=sharing)
+![akurasi](https://drive.google.com/file/d/1Ec-Vlujyb4Vo3Zmwa3iHw3CPTK3Nl_N6/view?usp=sharing)
 
 Precision digunakan untuk menjawab pertanyaan seperti:
 Berapa proporsi identifikasi positif yang sebenarnya benar?
 
-[precision](https://drive.google.com/file/d/1XssRN2Qu4HLMRxGoYwwT_CLl-RrIej6r/view?usp=sharing)
+![precision](https://drive.google.com/file/d/1XssRN2Qu4HLMRxGoYwwT_CLl-RrIej6r/view?usp=sharing)
 
 Recall digunakan untuk menjawab pertanyaan seperti:
 Berapa proporsi positif aktual yang diidentifikasi dengan benar?
 
-[recall](https://drive.google.com/file/d/1J_Kfmd1qPUg1226ef1GURe8U6xKt13pp/view?usp=sharing)
+![recall](https://drive.google.com/file/d/1J_Kfmd1qPUg1226ef1GURe8U6xKt13pp/view?usp=sharing)
 
 **---Ini adalah bagian akhir laporan---**
