@@ -4,8 +4,9 @@
 Anime merupakan salah satu hiburan berbentuk tayangan dari 2 dimensi karakter. Anime merupakan animasi yang bersal dari Jepang. 
 Anime dapat dinikmati oleh berbagai kalangan usia bahkan penikmat anime tidak hanya orang Jepang melainkan sampai dengan orang yang berada di luar negeri.
 Anime sangat bermanfaat untuk memenuhi kebutuhan hiburan manusia. 
-Dikarenakan banyaknya peminat anime maka hingga saat ini pembuatan anime sangatlah banyak sehingga user membutuhkan sistem rekomendasi untuk dapat melihat anime lain yang sesuai dengan yang mereka sukai. 
-Dalam penyelesaian masalah ini akan menggunakan collaborative filtering untuk dapat memberikan rekomendasi anime dari sesama penyuka anime lain. 
+Dikarenakan banyaknya peminat anime maka hingga saat ini pembuatan anime sangatlah banyak sehingga user membutuhkan sistem rekomendasi untuk dapat melihat anime lain yang sesuai dengan yang mereka sukai. Rekomendasi sistem adalah algoritma yang memprediksi suka dan tidak suka pengguna berdasarkan pada aktivitas konsumen sebelumnya (online) dan merekomendasikan item yang relevan untuk menyelesaikan krisis tersebut. Sistem rekomendasi adalah salah satu prinsip teknologi perangkat lunak yang mendasari sebagian besar layanan online di berbagai bidang seperti bidang *online shop* dan lainnya (Nitu et al., 2021).
+
+Dalam penyelesaian masalah ini akan menggunakan  Content Based Filtering dan Collaborative Based Filtering untuk dapat memberikan rekomendasi anime dari sesama penyuka anime lain. 
 
 ## Business Understanding
 
@@ -17,16 +18,41 @@ Dalam penyelesaian masalah ini akan menggunakan collaborative filtering untuk da
 - Mengetahui cara membuat sistem yang dapat merekomendasikan anime untuk user dengan anime yang disukai oleh user lain.
 
 ### Solution statements
-Dalam penyelesaian masalah ini akan dilakukan dengan Collaborative Based Filtering.
-Collaborative Based Filtering Collaborative Based Filtering adalah sistem rekomendasi berdasarkan pendapat suatu komunitas. Pada Collaborative Based Filtering terdapat 2 kategori:
-- Metode Berbasis Memori: Metode berbasis memori merupakan metode di mana kita memprediksi prefresensi pengguna dari database atau sample dari pengguna lainnya. Pada model berbasis memori terdapat 2 kategori, yaitu user based dan item based.
-- Metode Berbasis Model: Metode berbasis model cukup menarik, karena di metode ini kita mengambil informasi dari kumpulan data yang kemudian diolah untuk menentukan model probabilitas untuk membuat rekomendasi. Pada model berbasis model terdapat 3 kategori, yaitu Cluster-based Algorithm, Matrix factorization, dan Deep Learning
+Dalam penyelesaian masalah ini akan dilakukan dengan Content Based Filtering dan Collaborative Based Filtering
 
-Kelebihan pada Collaborative Based Filtering bila dibandingkan dengan Content Based Filtering adalah pengguna dapat mengeksplorasi item atau konten di luar preferensi pengguna. Pengguna pun juga dapat mendapat rekomendasi sesuai dengan kecenderungan publik yang dianalisa lewat penilaian pengguna - pengguna lainnya.
+Content Based Filtering adalah sistem rekomendasi yang merekomendasikan item sesuai dengan item yang dulu disukai oleh user.
 
-Kekurangan pada Collaborative Based Filtering adalah pengguna kurang mendapatkan rekomendasi sesuai preferensi pribadi. Konten - konten yang diberikan oleh sistem rekomendasi lebih banyak berasal dari preferensi publik dan bukan preferensi pribadi.
+Content Based mempelajari profil dan perilaku dari pengguna yang kemudian dari informasi tersebut dianalisa dan diproses sehingga menghasilkan sistem rekomendasi yang baik. Semakin banyak informasi yang diberikan ke sistem ini, maka sistem rekomendasi berbasis content based akan memiliki akurasi yang lebih baik.
 
-Dalam Pembuatan rekomendasi sistem ini akan menggunakan metode berbasis memori untuk Collaborative Based Filtering.
+Ada 2 informasi yang penting dalam sistem rekomendasi berbasis Content Based Filtering:
+
+- Model preferensi pengguna
+- Riwayat interaksi pengguna
+
+Kelebihan pada Content Based Filtering dibandingkan dengan Collaborative Filtering: 
+- Sistem rekomendasi dapat merekomendasikan item - item berdasarkan *history* dari pengguna. Setiap pengguna memiliki preferensinya masing - masing, sehingga Content Based Filtering dapat memberikan rekomendasi item yang subjektif dan tepat dengan pengguna.
+
+Kekurangan pada Content Based Filtering dibandingkan dengan Collaborative Filtering: 
+- Sistem rekomendasi tidak dapat merekomendasikan item - item secara objektif, karena sistem rekomendasi Content Based Filtering memiliki bias terhadap riwayat profil dan perilaku pengguna.
+
+Pada Content Based Filtering, akan membuat sistem rekomendasi yang berpusat pada tipe anime (*type*), sehingga pengguna akan mendapatkan hasil rekomendasi berdasarkan tipe anime yang telah dibaca oleh pengguna.
+
+Collaborative Based Filtering Collaborative Based Filtering adalah sistem rekomendasi berdasarkan dari user lain. Pada Collaborative Based Filtering terdapat 2 kategori:
+- Metode Berbasis Memori
+     Metode berbasis memori merupakan metode di mana kita memprediksi prefresensi pengguna dari database atau sample dari pengguna lainnya. Pada model berbasis memori terdapat 2 kategori, yaitu user based dan item based.
+- Metode Berbasis Model
+    Metode berbasis model cukup menarik, karena di metode ini kita mengambil informasi dari kumpulan data yang kemudian diolah untuk menentukan model probabilitas untuk membuat rekomendasi. Pada model berbasis model terdapat 3 kategori, yaitu Cluster-based Algorithm, Matrix factorization, dan Deep Learning
+
+Kelebihan pada Collaborative Based Filtering bila dibandingkan dengan Content Based Filtering:
+- Pengguna dapat mengeksplorasi item atau konten di luar preferensi pengguna. 
+- Pengguna pun juga dapat mendapat rekomendasi sesuai dengan kecenderungan publik yang dianalisa lewat penilaian pengguna - pengguna lainnya.
+
+Kekurangan pada Collaborative Based Filtering:
+- pengguna kurang mendapatkan rekomendasi sesuai preferensi pribadi. 
+- Konten - konten yang diberikan oleh sistem rekomendasi lebih banyak berasal dari preferensi publik dan bukan preferensi pribadi.
+
+Dalam Pembuatan rekomendasi sistem ini akan menggunakan rating dari user lain sebagai rekomendasi anime.
+
 ## Data Understanding
 Dataset yang digunakan untuk proyek ini berada di Kaggle platform yang dapat diakses melalui [tautan](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database) ini.
 Dataset berisikan 2 dataframe yaitu **anime.csv** dan **rating.csv***.
@@ -46,98 +72,120 @@ Rating.csv terdapat variabel yaitu:
 - anime_id: anime yang user sudah nilai.
 - rating: user rating dalam skala 10 (-1 tidak melakukan penilaian).
 
-Sebelum memasuki data preparation akan dilakukan EDA dengan cara melihat data di dataset terlebih dahulu.
+### Data Preprocessing
+Sebelum memasuki data preparation akan dilakukan beberapa data preprocessing yaitu seperti:
+1. Mengubah nama kolom dalam datset anime dan rating
+Pengubahan nama kolom ini didasarkan agar tidak terjadi kebingungan dalam penggunaan dataset.  Perubahan yang dilakukan adalah
+- kolom rating di dalam anime.csv akan diubah menjadi AverageRating menyesuaikan variabel yang sebelumnya dijelaskan.
+- kolom rating di dalam rating.csv akan diubah menjadi user_rating menyesuaikan variabel yang sebelumnya dijelaskan.
+2. Pembatasan Dataset dikarenakan dataset yang banyak
+Dataset yang didapat berjumlah sangat besar dengan anime.csv sebesar 12294 data sedangkan rating.csv sebesar 7813737. Jumlah yang sangat besar ini akan memengaruhi dalam komputasi sehingga data yang dipakai dibatasi dalam jumlah 1000.
+3. Mengubah Unknown menjadi 0 
+Dalam beberapa data pada bagian kolom episodes di anime.csv dapat dilihat bahwa berisikan kalimat unknown. Pengisian unknown dalam data akan mempengaruhi dalam pembuatan sistem rekomendasi sehingga untuk memudahkan akan diubah dengan nilai 0.
 
-![Screenshot 2022-08-17 at 09-14-48 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185019765-83364413-2a3b-4a04-b9fc-8700b4b66520.png)
+### Data analysis
+ Setelah melalui proses preprocessing maka akan dilihat data untuk memudahkan dalam memahami data. Visualisasi data berdasarkan univariate data analysis. Dalam visualisai ini dilakukan 2 bar plot yaitu visualiasi *type* anime dan juga *user_rating* dalam anime.
+ 
+![Screenshot 2022-08-17 at 18-36-39 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185109096-7b6b1f74-6528-411e-b895-81e7991c7e6e.png)
 
-Dari gambar diatas dapat dilihat data yag terdapat di anime.csv
+Dalam visualisasi diatas dapat dilihat jumlah anime berdasarkan *type anime* di dalam anime.csv
 
-![Screenshot 2022-08-17 at 09-16-20 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185019852-3e34fc63-086b-4a0c-a290-b29c2ad5a0f1.png)
+![Screenshot 2022-08-17 at 18-36-52 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185109247-920077e3-e7c5-4592-8ae0-0375a7a64383.png)
 
-Gambar yang kedua merupakan data yang terdapat dalam rating.csv
-Selain melihat data yang terdapat dalam dataset juga diperlukan mencari informasi mengenai dataset.
+Dalam visualisasi diatas dapat dilihat jumlah anime berdasarkan *user_rating anime* di dalam rating.csv
 
 ## Data Preparation
-Dalam data preparation saya melakukan beberapa hal yaitu:
-1. Mengubah nilai -1 dalam Rating.csv menjadi NaN. 
-    Hal ini perlu dilakukan karena -1 mengartikan bahwa user tidak melakukan rating terhadap anime
-dan agar mudah nantinya untuk dihapus.
-2. Penghapusan nilai NaN 
-    Nilai NaN yang ada akan dihapuskan sehingga dapat digunakan dengan lebih baik.
-3. Limitasi Data 
-    Dataset yang didapat berjumlah besar sehingga perlu dilakukan limitasi data yang dipakai untuk tidak terjadinya komputasi besar.
-    dalam hal ini saya menggunakan data sebanyak 1000.
-4. Pengelompokan Anime berdasarkan *Type*
-    Pengelompokan anime berdasarkan type dilakukan karena dalam sistem rekomendasi ini hanya akan mengambil salah satu tipe anime saja untuk mempermudah. 
-    Pengelompokan ini berdasarkan dari rating anime per tipe yang ada.
-    
-    ![Screenshot 2022-08-17 at 09-27-27 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185021194-d39802c4-8f5f-48b8-966a-f897061e2299.png)
-    
-    Dalam grafik tersebut ditunjukan perbandingan rating antara tipe anime
-    
-    ![Screenshot 2022-08-17 at 09-27-41 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185021244-a033bb18-55d4-4c80-9608-9d97bb2dfe6a.png)
+Dalam data preparation dilakukan beberapa hal sebelum memasuki pembuatan modelling Content Based Filtering dan Collaborative Based Filtering yaitu:
+- Penghapusan nilai NaN 
+ penghapusan nilai NaN digunakan dalam proses data preparation untuk membuang seluruh row yang memiliki NaN values. Model tidak dapat melakukan training jika terdapat nilai NaN pada *training data*.
+- Pengubahan nilai -1 menjadi NaN 
+pengubahan nilai -1 menjadi NaN dikarenakan -1 mengindisikan bahwa user tidak melakukan penilaian dalam anime yang mereka tonton sehingga pengubahan ini diperlukan agar mempermudah dalam persiapan data yang selanjutnya akan dihapuskan nilai NaN tersebut.
 
-    Hasil rata-rata rating anime berdasarkan tipe anime. Dari hasil diatas dapat dilihat bahwa tipe tv memiliki peringkat tertinggi sedangkan tipe music memiliki rating terendah.
-    Untuk dalam sistem rekomendasi ini akan menggunakan tipe music dikarenakan memiliki rating yang paling rendah.
+### Data Preparation di Content Based Filtering
+Dalam pembuatan model Content Based Filtering terdapat tambahan untuk data preparation yaitu,
+
+- Mengubah Dataframe dari anime menjadi sebuah list.
+ Perubahan dari dataframe menjadi list menggunakan .tolist() method. Proses ini dilakukan karena list ini akan digunakan pada tahap selanjutnya menjadi dictionary baru yg akan menjadi landasan pada sistem rekomendasi.
+- Memasukkan List ke Dictionary.
+Setelah pembuatan list, maka perlu membuat dictionary yang digunakan untuk memnentukan pasangan key-value pada:
+    - anime_id,
+    - anime_name,
+    - anime_genre,
+    - anime_type,
+    - anime_episodes,
+    - anime_AveRat (average rating),
+    - anime_members,
+### Data Preparation di Collaborative Based Filtering
+Dalam pembuatan model Collaborative Based Filtering terdapat tambahan untuk data preparation yaitu,
+- mengubah user_id pada rating_data dan anime_id pada anime_dataset menjadi integer.
+    Setelah dilakukan pengubahan, jumlah dari user_id dan anime_id tersebut akan disimpan pada num_users dan num_anime.
+- Pembagian Data Train dan Data Valid 
+Pembagian dilakukan ketika data telah semua sudah terkumpul, data yang ada harus dibagi menjadi data latih dan data validasi, akan tetapi sebelum itu kita perlu menarik sample dari dataset yang sudah ada.
 
 ## Modeling
-Dikarenakan collaborative based filtering menggunakan jenis Metode Berbasis Memori maka dalam pembuatan sistem rekomendasi tidak menggunakan model. 
+### Modeling Content Based Filtering
+dalam metode Content Based Filtering akan menggunakan TF-IDF Vectorizer untuk membangun sistem rekomendasi berdasarkan type anime.TF-IDF yang merupakan kepanjangan dari Term Frequency-Inverse Document Frequency memiliki fungsi untuk mengukur seberapa pentingnya suatu kata terhadap kata - kata lain dalam dokumen. Berikut code yang digunakan dalam pembuatan modeling dengan TF-IDF Vectorizer,
 
-## Metode Berbasis Memori
-Dalam pembuatan collaborative based filtering ini akan menggunakan pivot table untuk mempermudah dalam melakukan penentuan similarity.
-Tabel pivot akan membantu dalam menentukan kesamaan antara user dan anime untuk memprediksi lebih baik siapa yang akan menyukai anime apa.
-Setelah pembuatan table pivot maka akan diperlukan normalisasi terhadap value yang ada. Tujuan normalisasi adalah untuk mengubah nilai kolom numerik dalam kumpulan data untuk menggunakan skala umum, tanpa mendistorsi perbedaan dalam rentang nilai atau kehilangan informasi.
-Kemudian akan dilakukan sparse matrix dan cosine similarity. Sparse matrix dilakukan karena data akan digunakan dengan cosine similarity.
+![Screenshot 2022-08-17 at 18-59-48 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185113231-55c80fc8-4073-4891-b38f-a4e75578c970.png)
 
-Cosine similarity mengukur kesamaan antara dua vektor dan menentukan apakah kedua vektor tersebut menunjuk ke arah yang sama. 
-Ia menghitung sudut cosinus antara dua vektor. Semakin kecil sudut cosinus, semakin besar nilai cosine similarity. 
-Cosine similarity digunakan untuk penghitungan antara user similarity dan item similarity. Cosine similarity pada umumnya memiliki rumus.
+Code diatas akan menghasilkan kata - kata penting dalam kolom anime_type yang berasal dari attribut .get_feature_names() dari tf.
+Kemudian dari string yang didapat akan dimasukkan ke dalam matriks yaitu tfidf_matrix.
 
+Dalam sistem rekomendasi, diperlukan mencari cara agar item yang direkomendasikan tidak terlalu jauh dari data pusat atau item, oleh karena itu dibutuhkan derajat kesamaan pada item, dalam proyek ini, akan menggunakan cosine similarity untuk antar anime.
+Kemudian membutuhkan fungsi anime_type_recommendation yang terdapat atribut argpartition untuk mengambil sejumlah nilai k. Fungsi tersebut akan mengembalikan 5 anime type tertinggi dari tingkat kesamaan yang berasal dari dataframe cosine_sim_df.
 
-![dos 784efd3d2ba47d47153b050526150ba920210910171725](https://user-images.githubusercontent.com/96067921/185022912-508d4046-0307-42de-8c60-c1ffa0150161.jpeg)
+```
+anime[anime.anime_name.eq(anime_ditonton)]
+```
+kode tersebut akan digunakan dalam pencarian rekomendasi tipe anime.
+```
+recommendations = anime_type_recommendation(anime_ditonton, cosine_sim_df, anime[['anime_name', 'anime_type']])
+```
+Untuk mendapatkan rekomendasi anime berdasarkan tipe dapat menggunakan code diatas. Hasil yang didapat ditampilkan dalam gambar table selanjutnya.
 
-Kemudian data yang sudah melalui cosine similarity akan dimasukan ke dataframe object.
+![Screenshot 2022-08-17 at 19-09-15 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185115092-a5654601-fd2f-49cb-bfb7-9887278779d2.png)
 
-### Function 
+### Modeling Collaborative Based Filtering
+Dalam Modeling Collaborative Based Filtering akan menggunakan RecommenderNet. Proses compile pada model dilakukan dengan binary crossentropy sebagai loss function, adam sebagai optimizer, dan RMSE sebagai metrik dari model. Model juga dilatih dengan 20 epoch.
 
-Dikarenakan tidak memakai model maka akan menggunakan function untuk mendapatkan hasil sistem rekomendasi. Beberapa fungsi yang dibuat adalah:
-- top_animes(anime_name):Fungsi yang akan mengembalikan anime yang memiliki similarity tertinggi
-- top_users(user):Fungsi yang akan mengembalikan sesama user yang memiliki similarity tertinggi.
-- similar_user_recs(user): Fungsi yang digunakan untuk membuat daftar yang berisi anime dengan rating tertinggi per user similarity.
-- predicted_rating(anime_name, user): Fungsi yang digunakan untuk memprediksi rating yang diberikan user terhadap anime tertentu.
+Sebelum pembuatan rekomendasi, akan dilakukan code untuk mengambil user_id secara acak dari rating_data. Hal ini dilakukan untuk mengetahui anime yang pernah ditonton oleh user sehingga dapat dilakukan pembuatan rekomendasi.
 
-Beberapa contoh dalam penggunaan function 
+![Screenshot 2022-08-17 at 19-15-15 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185116092-ea4dc976-585a-463a-aa77-6262a6b54417.png)
 
-![Screenshot 2022-08-17 at 09-59-04 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185025116-058da000-f409-48e3-b8b2-6639c09a3c46.png)
-
-
-![Screenshot 2022-08-17 at 09-59-59 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185025177-50ee335e-261c-4db4-9348-e662f835f80f.png)
-
-
-
-Dalam penggunaan metode ini terdapat kelebihan yaitu tidak memerlukan komputasi yang tinggi dan pengolahan data juga cepat. 
-Sedangkan untuk kekurangan yang ada adalah tidak dapat mengetahui apakah memiliki hasil yang bagus atau tidak.
-
+Gambar diatas merupakan hasil rekomendasi menggunakan Collaborative Based Filtering untuk user 3.
 ## Evaluation
-Pada bagian evaluasi dilakukan dengan mean squared error terhadap antara prediksi dan *actual* value. 
-Sebelumnya Mean Squared Error (MSE) adalah menghitung jumlah selisih kuadrat rata-rata nilai sebenarnya dengan nilai prediksi. MSE didefinisikan dalam persamaan berikut
+
+### Evaluation Content Based Filtering
+Dalam evaluasi model Collaborative Based Filtering digunakan Akurasi. Rumus akurasi yang digunakan adalah: Jumlah anime yang direkomendasikan sesuai dengan tipe anime / Jumlah anime yang direkomendasikan. Akurasi secara umum adalah Ratio dari True Positives dan True Negative terhadap seluruh positif dan negative di seluruh observasi. Rumus Accuracy adalah sebagai berikut
+
+![Screenshot 2022-08-16 at 14-49-18 Classification Accuracy Machine Learning Google Developers](https://user-images.githubusercontent.com/96067921/184913891-3abda482-7316-4959-93f0-630a56e74cbd.png)
+
+Sebelum memasuki code akurasi akan dilakukan penambahan code untuk proses pengecekan setiap type dari anime yang direkomendasikan, jika sama maka variabel type_asli akan bertambah 1. Kemudian setelah proses pengecekan akan dapat dilakukan penghitungan akurasi. 
+
+![Screenshot 2022-08-17 at 19-29-13 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185121938-c52f199f-ec23-4629-920b-370a13cd4f36.png)
+
+Gambar diatas merupakan code dan hasil dari akurasi model yang telah dibuat.
+
+### Evaluation Collaborative Based Filtering
+Dalam evaluasi model Collaborative Based Filtering digunakan RMSE. RMSE adalah hasil dari akar MSE membuat RMSE memiliki nilai yang lebih kecil dibandingkan dengan MSE. RMSE sering digunakan untuk perbedaan antara nilai (nilai sampel atau populasi) yang diprediksi oleh model atau penduga dan nilai yang diamati.
+Rumus RMSE:
+
+![22](https://user-images.githubusercontent.com/96067921/185116677-e75af030-ab14-42a3-831e-ba65480218e1.JPG)
+
+- At = Nilai data Aktual 
+- Ft = Nilai hasil peramalan 
+- N = banyaknya data 
+- ∑ = Summation (Jumlahkan keseluruhan nilai)
+
+RMSE memiliki nilai yang lebih kecil daripada MSE sehingga error yang dihasilkan akan sedikit.
+Berikut grafik RMSE dari model yang telah dibuat.
+
+![Screenshot 2022-08-17 at 19-21-07 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185117142-eb968b62-2b9d-41cb-a063-9e92b35e9ceb.png)
 
 
-![2021071619431112f1106e20559e77c855cea11d1b1479](https://user-images.githubusercontent.com/96067921/185024354-33d8c7c3-7a7a-4f91-90f6-bb2f4dea3457.jpeg)
+## Kesimpulan
+Dalam pembuatan rekomendasi sistem dapat dilakukan dengan 2 cara yaitu Content Based Filtering dan juga Collaborative Based Filtering. Kedua cara tersebut memiliki kelebihan dan kekurangan masing-masing yang dapat dikembangkan labih baik lagi. 
 
-dengan keterangan:
-- N = jumlah dataset
-- yi = nilai sebenarnya
-- y_pred = nilai prediksi
-
-![Screenshot 2022-08-17 at 09-50-59 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185024021-4cfecb80-6325-4783-a99e-916f66ea1d99.png)
-
-Code dalam melakukan evaluasi.
-
-![Screenshot 2022-08-17 at 09-51-29 Google Colaboratory](https://user-images.githubusercontent.com/96067921/185024670-20923a2f-efff-4b3f-9241-175c80950e84.png)
-
-Hasil Mean Squareed Error dalam prediksi di sistem rekomendasi 
-
-
-
+## Referensi
+[Nitu, P., Coelho, J., & Madiraju, P. (2021). Improvising personalized travel recommendation system with recency effects. Big Data Mining and Analytics, 4(3), 139–154.](https://doi.org/10.26599/BDMA.2020.9020026)
 
